@@ -10,20 +10,48 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
     <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --background-color: #f9fafb;
+            --text-color: #111827;
+            --button-gradient: linear-gradient(135deg, #6366f1, #ec4899);
+            --card-background: #ffffff;
+            --input-background: #f3f4f6;
+            --input-border: #d1d5db;
+            --input-focus: #6366f1;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+        }
+
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background: linear-gradient(135deg, #adb9f0 0%, #bc96e2 100%);
+            background-color: var(--background-color);
+            color: var(--text-color);
             line-height: 1.6;
             opacity: 0;
-            animation: fadeInPage 1s forwards;
+            animation: fadeInPage 0.5s forwards;
         }
+
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
         }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        @keyframes fadeInPage {
+            to { opacity: 1; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .spinner {
             border: 4px solid rgba(255, 255, 255, 0.3);
             width: 36px;
@@ -32,10 +60,7 @@
             border-left-color: #ffffff;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+
         .checkmark {
             width: 36px;
             height: 36px;
@@ -44,165 +69,172 @@
             stroke-width: 2;
             stroke: #fff;
             stroke-miterlimit: 10;
-            box-shadow: inset 0px 0px 0px #4f46e5;
+            box-shadow: inset 0px 0px 0px var(--success-color);
             animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
         }
+
         .checkmark__circle {
             stroke-dasharray: 166;
             stroke-dashoffset: 166;
             stroke-width: 2;
             stroke-miterlimit: 10;
-            stroke: #4f46e5;
+            stroke: var(--success-color);
             fill: none;
             animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
         }
+
         .checkmark__check {
             transform-origin: 50% 50%;
             stroke-dasharray: 48;
             stroke-dashoffset: 48;
             animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
         }
+
         @keyframes stroke {
             100% { stroke-dashoffset: 0; }
         }
+
         @keyframes scale {
             0%, 100% { transform: none; }
             50% { transform: scale3d(1.1, 1.1, 1); }
         }
+
         @keyframes fill {
-            100% { box-shadow: inset 0px 0px 0px 30px #4f46e5; }
+            100% { box-shadow: inset 0px 0px 0px 30px var(--success-color); }
         }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+
+        .card {
+            background-color: var(--card-background);
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
-        .hover-scale {
-            transition: transform 0.3s ease-in-out;
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.1), 0 15px 15px -5px rgba(0, 0, 0, 0.04);
         }
-        .hover-scale:hover {
-            transform: scale(1.05);
-        }
+
         .toggle-button {
-            transition: all 0.3s ease-in-out, background-color 0.5s;
+            transition: all 0.3s ease;
+            background-color: var(--input-background);
+            color: var(--text-color);
+            border: 1px solid var(--input-border);
         }
+
         .toggle-button.active {
-            background-color: #6b46c1;
+            background-color: var(--primary-color);
             color: white;
-            box-shadow: 0 0 20px rgba(107, 70, 193, 0.5);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            transform: translateY(-2px);
         }
-        .custom-shadow {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+        textarea, input[type="text"] {
+            background-color: var(--input-background);
+            border: 1px solid var(--input-border);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
         }
-        .version-section {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+
+        textarea:focus, input[type="text"]:focus {
+            border-color: var(--input-focus);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+            outline: none;
         }
-        .version-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #4f46e5;
-            margin-bottom: 10px;
+
+        .submit-button {
+            background: var(--button-gradient);
+            color: white;
+            transition: all 0.3s ease;
+            border-radius: 0.75rem;
         }
-        .version-content {
-            font-size: 1rem;
-            color: #333;
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
         }
-        textarea#postContent {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .border-dashed {
-            border-style: dashed;
-        }
-        .border-dashed:hover {
-            border-color: #6b46c1;
-            background-color: #f0e8ff;
-        }
-        #submitButton {
-            transition: transform 0.3s ease-in-out, background-color 0.5s;
-        }
-        #submitButton:active {
+
+        .submit-button:active {
             transform: scale(0.98);
         }
-        @keyframes fadeInPage {
-            to { opacity: 1; }
+
+        .version-section {
+            background-color: var(--card-background);
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .version-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.1), 0 15px 15px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        @media (max-width: 640px) {
+            .card, .version-section {
+                border-radius: 1rem;
+            }
         }
     </style>
 </head>
 <body class="h-full">
     <div class="min-h-full flex flex-col">
-        <nav class="bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex h-20 items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-16 w-16 rounded-full shadow-md transform hover:scale-110 transition-transform duration-300" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300" alt="乾淨天中">
-                        </div>
-                        <div class="ml-4 text-3xl font-bold text-white tracking-wide hover:text-indigo-200 transition-colors duration-300">乾淨天中</div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
         <main class="flex-grow py-12 px-4 sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-4xl">
-                <div class="bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-all duration-300 glass-effect custom-shadow">
-                    <div class="px-8 py-10">
-                        <div class="flex justify-center mb-6">
-                            <button id="shortPostBtn" class="toggle-button px-8 py-3 bg-gray-200 text-gray-700 rounded-l-full focus:outline-none transition-all duration-300 active">短文</button>
-                            <button id="longPostBtn" class="toggle-button px-8 py-3 bg-gray-200 text-gray-700 rounded-r-full focus:outline-none transition-all duration-300">長文</button>
-                        </div>
-                        <form id="postForm" class="space-y-8">
-                            <div>
-                                <label for="postContent" class="block text-2xl font-semibold text-gray-700 mb-2">分享你的想法</label>
-                                <div class="mt-2">
-                                    <textarea id="postContent" name="postContent" rows="5" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base transition duration-150 ease-in-out" placeholder="寫下你的想法..."></textarea>
-                                    <p id="charCount" class="mt-2 text-sm text-gray-500 font-medium">已輸入 0 字</p>
-                                </div>
-                            </div>
-                            <div>
-                                <label for="postMedia" class="block text-2xl font-semibold text-gray-700 mb-2">添加圖片（最多兩個檔案）</label>
-                                <div class="mt-2 flex justify-center rounded-lg border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 transition duration-300 ease-in-out hover:border-indigo-500 hover:bg-indigo-50">
-                                    <div class="space-y-2 text-center">
-                                        <svg class="mx-auto h-16 w-16 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                        <div class="flex text-base text-gray-600 justify-center">
-                                            <label for="postMedia" class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500 transition duration-150 ease-in-out">
-                                                <span>上傳圖片</span>
-                                                <input id="postMedia" name="postMedia" type="file" accept="image/*" multiple class="sr-only">
-                                            </label>
-                                            <p class="pl-1">或拖放檔案</p>
-                                        </div>
-                                        <p class="text-sm text-gray-500">PNG, JPG, GIF 最大 50MB，最多兩個檔案</p>
-                                    </div>
-                                </div>
-                                <div id="mediaPreview" class="mt-6 flex space-x-4"></div>
-                            </div>
-                            <div>
-                                <button type="submit" id="submitButton" class="w-full inline-flex justify-center rounded-lg border border-transparent bg-gradient-to-r from-purple-500 to-pink-500 py-4 px-6 text-lg font-medium text-white shadow-lg hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition duration-300 ease-in-out transform hover:scale-105">
-                                    <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                    </svg>
-                                    發布
-                                </button>
-                            </div>
-                        </form>
+            <div class="mx-auto max-w-3xl">
+                <div class="card p-8 mb-8">
+                    <h1 class="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">乾淨天中發文系統</h1>
+                    <div class="flex justify-center mb-6">
+                        <button id="shortPostBtn" class="toggle-button px-6 py-2 rounded-l-full focus:outline-none active">短文</button>
+                        <button id="longPostBtn" class="toggle-button px-6 py-2 rounded-r-full focus:outline-none">長文</button>
                     </div>
+                    <form id="postForm" class="space-y-6">
+                        <div id="titleContainer" class="hidden">
+                            <label for="postTitle" class="block text-lg font-semibold mb-2">標題</label>
+                            <input type="text" id="postTitle" name="postTitle" class="w-full px-4 py-3 rounded-lg" placeholder="輸入標題...">
+                        </div>
+                        <div>
+                            <label for="postContent" class="block text-lg font-semibold mb-2">分享你的想法</label>
+                            <textarea id="postContent" name="postContent" rows="4" class="w-full px-4 py-3 rounded-lg" placeholder="寫下你的想法..."></textarea>
+                            <p id="charCount" class="mt-2 text-sm text-gray-500 font-medium">已輸入 0 字</p>
+                        </div>
+                        <div>
+                            <label for="postMedia" class="block text-lg font-semibold mb-2">添加圖片（最多兩個檔案）</label>
+                            <div class="mt-1 flex justify-center rounded-lg border-2 border-dashed border-indigo-300 px-6 pt-5 pb-6 transition duration-300 ease-in-out hover:border-indigo-500 hover:bg-indigo-50">
+                                <div class="space-y-1 text-center">
+                                    <svg class="mx-auto h-12 w-12 text-indigo-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="flex text-sm text-gray-600 justify-center">
+                                        <label for="postMedia" class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
+                                            <span>上傳圖片</span>
+                                            <input id="postMedia" name="postMedia" type="file" accept="image/*" multiple class="sr-only">
+                                        </label>
+                                        <p class="pl-1">或拖放檔案</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500">PNG, JPG, GIF 最大 50MB，最多兩個檔案</p>
+                                </div>
+                            </div>
+                            <div id="mediaPreview" class="mt-4 flex space-x-4"></div>
+                        </div>
+                        <div>
+                            <button type="submit" id="submitButton" class="submit-button w-full flex justify-center items-center py-3 px-6 text-base font-medium">
+                                <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                                發布
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
-                <div id="postCountDisplay" class="mt-8 text-center text-xl font-semibold text-white bg-gradient-to-r from-purple-500 to-indigo-500 p-6 rounded-lg shadow-md glass-effect hover-scale"></div>
+                <div id="postCountDisplay" class="mb-8 text-center text-lg font-semibold text-indigo-700 bg-white p-4 rounded-lg shadow-md"></div>
 
-                <div class="version-section">
-                    <div class="version-title">版本更新</div>
-                    <div class="version-content">
-                        <p><strong>v1.0:</strong> 初始版本發布，包含基本長文發佈功能。</p>
-                        <p><strong>v1.1:</strong> 新增切換發佈功能，讓用戶可以發佈更短的內容。</p>
+                <div class="version-section p-8">
+                    <h2 class="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-pink-500">版本更新</h2>
+                    <div class="space-y-3">
+                        <p><strong class="text-indigo-600">v1.0:</strong> 初始版本發布，包含基本長文發佈功能。</p>
+                        <p><strong class="text-indigo-600">v1.1:</strong> 新增切換發佈功能，讓用戶可以發佈更短的內容。</p>
+                        <p><strong class="text-indigo-600">v1.2:</strong> 優化界面設計，提升用戶體驗。新增長文標題功能。</p>
                     </div>
                 </div>
             </div>
@@ -212,7 +244,7 @@
     <script>
         // Firebase 配置
         const firebaseConfig = {
-            apiKey: "AIzaSyDAw3LKSDHHwasOhN0l63lO4I-AO1xeGGU",
+            apiKey: "AIzaSyDAw3LKSDH HwasOhN0l63lO4I-AO1xeGGU",
             authDomain: "tmjh113.firebaseapp.com",
             projectId: "tmjh113",
             storageBucket: "tmjh113.appspot.com",
@@ -229,6 +261,8 @@
         const storage = firebase.storage();
 
         const postContent = document.getElementById('postContent');
+        const postTitle = document.getElementById('postTitle');
+        const titleContainer = document.getElementById('titleContainer');
         const charCount = document.getElementById('charCount');
         const submitButton = document.getElementById('submitButton');
         const postMedia = document.getElementById('postMedia');
@@ -245,6 +279,7 @@
             minChars = 10;
             shortPostBtn.classList.add('active');
             longPostBtn.classList.remove('active');
+            titleContainer.classList.add('hidden');
             updateCharCount();
         });
 
@@ -253,6 +288,7 @@
             minChars = 50;
             longPostBtn.classList.add('active');
             shortPostBtn.classList.remove('active');
+            titleContainer.classList.remove('hidden');
             updateCharCount();
         });
 
@@ -288,7 +324,7 @@
                 reader.onload = function(e) {
                     const img = document.createElement('img');
                     img.src = e.target.result;
-                    img.classList.add('h-32', 'w-32', 'object-cover', 'rounded-lg', 'shadow-md', 'transition-transform', 'duration-300', 'hover:scale-110');
+                    img.classList.add('h-24', 'w-24', 'object-cover', 'rounded-lg', 'shadow-md', 'transition-transform', 'duration-300', 'hover:scale-110');
                     mediaPreview.appendChild(img);
                 }
                 reader.readAsDataURL(file);
@@ -299,10 +335,16 @@
             e.preventDefault();
             
             const content = postContent.value;
+            const title = postTitle.value;
             const mediaFiles = postMedia.files;
             
             if (content.trim().length < minChars && mediaFiles.length === 0) {
                 alert(`請輸入至少${minChars}字的內容或選擇圖片`);
+                return;
+            }
+            
+            if (!isShortPost && title.trim().length === 0) {
+                alert('長文請輸入標題');
                 return;
             }
             
@@ -330,6 +372,7 @@
 
                 // 將帖子數據保存到 Firestore
                 await db.collection('posts').add({
+                    title: isShortPost ? null : title,
                     content: content,
                     mediaUrls: mediaUrls,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -348,11 +391,11 @@
                     </svg>
                 `;
                 submitButton.classList.add('bg-green-500');
-                submitButton.classList.remove('bg-gradient-to-r', 'from-purple-600', 'to-indigo-600');
+                submitButton.classList.remove('bg-gradient-to-r', 'from-indigo-500', 'to-pink-500');
                 
                 // 顯示審核消息
                 const message = document.createElement('div');
-                message.className = 'mt-6 p-4 bg-blue-100 text-blue-700 rounded-lg text-center fade-in font-medium';
+                message.className = 'mt-4 p-3 bg-indigo-100 text-indigo-700 rounded-lg text-center fade-in font-medium';
                 message.textContent = '天中乾淨正在審核您的貼文，請稍後';
                 this.insertAdjacentElement('afterend', message);
                 
@@ -364,7 +407,7 @@
                     submitButton.innerHTML = '發布';
                     submitButton.disabled = false;
                     submitButton.classList.remove('bg-green-500');
-                    submitButton.classList.add('bg-gradient-to-r', 'from-purple-600', 'to-indigo-600');
+                    submitButton.classList.add('bg-gradient-to-r', 'from-indigo-500', 'to-pink-500');
                     message.remove();
                     mediaPreview.innerHTML = '';
                 }, 3000);
