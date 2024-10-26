@@ -14,12 +14,12 @@
         --primary-color: #6366f1;
         --secondary-color: #8b5cf6;
         --accent-color: #ec4899;
-        --background-color: #f9fafb;
-        --text-color: #111827;
+        --background-color: #f0f2f5;
+        --text-color: #1f2937;
         --button-gradient: linear-gradient(135deg, #6366f1, #ec4899);
         --card-background: #ffffff;
-        --input-background: #f3f4f6;
-        --input-border: #d1d5db;
+        --input-background: #f8fafc;
+        --input-border: #e2e8f0;
         --input-focus: #6366f1;
         --success-color: #10b981;
         --error-color: #ef4444;
@@ -29,17 +29,18 @@
         font-family: 'Noto Sans TC', sans-serif;
         background-color: var(--background-color);
         color: var(--text-color);
-        line-height: 1.6;
+        line-height: 1.8;
         opacity: 0;
-        animation: fadeInPage 0.5s forwards;
+        animation: fadeInPage 0.8s forwards;
+        background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     }
 
     .fade-in {
-        animation: fadeIn 0.5s ease-in-out;
+        animation: fadeIn 0.6s ease-in-out;
     }
 
     @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
+        from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
@@ -54,19 +55,19 @@
 
     .spinner {
         border: 4px solid rgba(255, 255, 255, 0.3);
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         border-left-color: #ffffff;
-        animation: spin 1s linear infinite;
+        animation: spin 1.2s linear infinite;
     }
 
     .checkmark {
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         display: block;
-        stroke-width: 2;
+        stroke-width: 3;
         stroke: #fff;
         stroke-miterlimit: 10;
         box-shadow: inset 0px 0px 0px var(--success-color);
@@ -76,18 +77,18 @@
     .checkmark__circle {
         stroke-dasharray: 166;
         stroke-dashoffset: 166;
-        stroke-width: 2;
+        stroke-width: 3;
         stroke-miterlimit: 10;
         stroke: var(--success-color);
         fill: none;
-        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        animation: stroke 0.8s cubic-bezier(0.65, 0, 0.45, 1) forwards;
     }
 
     .checkmark__check {
         transform-origin: 50% 50%;
         stroke-dasharray: 48;
         stroke-dashoffset: 48;
-        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        animation: stroke 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
     }
 
     @keyframes stroke {
@@ -96,83 +97,95 @@
 
     @keyframes scale {
         0%, 100% { transform: none; }
-        50% { transform: scale3d(1.1, 1.1, 1); }
+        50% { transform: scale3d(1.2, 1.2, 1); }
     }
 
     @keyframes fill {
-        100% { box-shadow: inset 0px 0px 0px 30px var(--success-color); }
+        100% { box-shadow: inset 0px 0px 0px 35px var(--success-color); }
     }
 
     .card {
         background-color: var(--card-background);
-        border-radius: 1.5rem;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        border-radius: 2rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.1), 0 15px 15px -5px rgba(0, 0, 0, 0.04);
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
     }
 
     .toggle-button {
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         background-color: var(--input-background);
         color: var(--text-color);
-        border: 1px solid var(--input-border);
+        border: 2px solid var(--input-border);
+        font-weight: 500;
     }
 
     .toggle-button.active {
-        background-color: var(--primary-color);
+        background: var(--button-gradient);
         color: white;
-        box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
-        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.5);
+        transform: translateY(-3px);
+        border: none;
     }
 
     textarea, input[type="text"] {
         background-color: var(--input-background);
-        border: 1px solid var(--input-border);
-        border-radius: 0.75rem;
-        transition: all 0.3s ease;
+        border: 2px solid var(--input-border);
+        border-radius: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 1.1rem;
+        padding: 1rem;
     }
 
     textarea:focus, input[type="text"]:focus {
         border-color: var(--input-focus);
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
         outline: none;
+        transform: translateY(-2px);
     }
 
     .submit-button {
         background: var(--button-gradient);
         color: white;
-        transition: all 0.3s ease;
-        border-radius: 0.75rem;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        padding: 1rem 2rem;
     }
 
     .submit-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
     }
 
     .submit-button:active {
-        transform: scale(0.98);
+        transform: scale(0.97);
     }
 
     .version-section {
         background-color: var(--card-background);
-        border-radius: 1.5rem;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        transition: all 0.3s ease;
+        border-radius: 2rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .version-section:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.1), 0 15px 15px -5px rgba(0, 0, 0, 0.04);
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
     }
 
     @media (max-width: 640px) {
         .card, .version-section {
-            border-radius: 1rem;
+            border-radius: 1.5rem;
         }
     }
 
@@ -185,133 +198,155 @@
         width: 100%;
         height: 100%;
         overflow: auto;
-        background-color: rgba(0,0,0,0.4);
-        backdrop-filter: blur(5px);
+        background-color: rgba(0,0,0,0.5);
+        backdrop-filter: blur(8px);
     }
 
     .modal-content {
         background-color: #ffffff;
         margin: 5% auto;
-        padding: 20px;
-        border: 1px solid #888;
+        padding: 2rem;
+        border: none;
         width: 90%;
         max-width: 800px;
-        border-radius: 20px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        transition: all 0.3s ease-in-out;
+        border-radius: 2rem;
+        box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: modalFadeIn 0.5s;
+    }
+
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .close {
         color: #aaa;
         float: right;
-        font-size: 28px;
+        font-size: 32px;
         font-weight: bold;
-        transition: color 0.3s ease;
+        transition: all 0.3s ease;
     }
 
     .close:hover,
     .close:focus {
-        color: #000;
+        color: var(--text-color);
         text-decoration: none;
         cursor: pointer;
+        transform: rotate(90deg);
     }
 
     #giphyResults {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 15px;
-        margin-top: 20px;
-        max-height: 60vh;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+        margin-top: 25px;
+        max-height: 65vh;
         overflow-y: auto;
-        padding: 10px;
-        border-radius: 10px;
-        background-color: #f3f4f6;
+        padding: 15px;
+        border-radius: 15px;
+        background-color: var(--input-background);
     }
 
     #giphyResults img {
         width: 100%;
-        height: 150px;
+        height: 180px;
         object-fit: cover;
-        border-radius: 10px;
+        border-radius: 15px;
         cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
     #giphyResults img:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transform: scale(1.08);
+        box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.2);
     }
 
     #giphySearch {
         width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
+        padding: 15px 25px;
+        margin: 10px 0;
         box-sizing: border-box;
-        border: 2px solid #ccc;
-        border-radius: 10px;
-        font-size: 16px;
+        border: 2px solid var(--input-border);
+        border-radius: 15px;
+        font-size: 1.1rem;
         background-color: white;
         background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ccc%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%228%22%2F%3E%3Cpath%20d%3D%22M21%2021l-4.35-4.35%22%2F%3E%3C%2Fsvg%3E');
-        background-position: 10px 10px;
+        background-position: 15px center;
         background-repeat: no-repeat;
-        padding-left: 40px;
-        transition: border-color 0.3s ease;
+        padding-left: 50px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     #giphySearch:focus {
         border-color: var(--primary-color);
         outline: none;
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
+        transform: translateY(-2px);
+    }
+
+    .stats-card {
+        background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
+        backdrop-filter: blur(10px);
+        border-radius: 1.5rem;
+        padding: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+        transition: all 0.3s ease;
+    }
+
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     }
 </style>
 </head>
 <body class="h-full">
 <div class="min-h-full flex flex-col">
-    <main class="flex-grow py-12 px-4 sm:px-6 lg:px-8">
+    <main class="flex-grow py-16 px-4 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-3xl">
-            <div class="card p-8 mb-8">
-                <h1 class="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">乾淨天中發文系統</h1>
-                <div class="flex justify-center mb-6">
-                    <button id="shortPostBtn" class="toggle-button px-6 py-2 rounded-l-full focus:outline-none active">短文</button>
-                    <button id="longPostBtn" class="toggle-button px-6 py-2 rounded-r-full focus:outline-none">長文</button>
-                </div>
-                <form id="postForm" class="space-y-6">
-                    <div id="titleContainer" class="hidden">
-                        <label for="postTitle" class="block text-lg font-semibold mb-2">標題</label>
-                        <input type="text" id="postTitle" name="postTitle" class="w-full px-4 py-3 rounded-lg" placeholder="輸入標題...">
+            <div class="card p-10 mb-10">
+                <h1 class="text-5xl font-bold text-center mb-10 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">乾淨天中發文系統</h1>
+                <form id="postForm" class="space-y-8">
+                    <div>
+                        <label for="postContent" class="block text-xl font-semibold mb-3">分享你的想法</label>
+                        <textarea id="postContent" name="postContent" rows="5" class="w-full px-5 py-4 rounded-xl" placeholder="寫下你的想法..."></textarea>
+                        <p id="charCount" class="mt-3 text-base text-gray-500 font-medium">已輸入 0 字</p>
                     </div>
                     <div>
-                        <label for="postContent" class="block text-lg font-semibold mb-2">分享你的想法</label>
-                        <textarea id="postContent" name="postContent" rows="4" class="w-full px-4 py-3 rounded-lg" placeholder="寫下你的想法..."></textarea>
-                        <p id="charCount" class="mt-2 text-sm text-gray-500 font-medium">已輸入 0 字</p>
-                    </div>
-                    <div>
-                        <label for="postMedia" class="block text-lg font-semibold mb-2">添加圖片、影片或 GIF（最多兩個檔案）</label>
-                        <div class="flex items-center space-x-4">
-                            <div class="flex-grow mt-1 flex justify-center rounded-lg border-2 border-dashed border-indigo-300 px-6 pt-5 pb-6 transition duration-300 ease-in-out hover:border-indigo-500 hover:bg-indigo-50">
-                                <div class="space-y-1 text-center">
-                                    <svg class="mx-auto h-12 w-12 text-indigo-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                        <label for="postMedia" class="block text-xl font-semibold mb-3">添加圖片、影片或 GIF（最多兩個檔案）</label>
+                        <div class="flex items-center space-x-6">
+                            <div class="flex-grow mt-2 flex justify-center rounded-xl border-3 border-dashed border-indigo-300 px-8 pt-6 pb-8 transition duration-300 ease-in-out hover:border-indigo-500 hover:bg-indigo-50">
+                                <div class="space-y-2 text-center">
+                                    <svg class="mx-auto h-14 w-14 text-indigo-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                         <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
-                                    <div class="flex text-sm text-gray-600 justify-center">
+                                    <div class="flex text-base text-gray-600 justify-center">
                                         <label for="postMedia" class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
                                             <span>上傳圖片或影片</span>
                                             <input id="postMedia" name="postMedia" type="file" accept="image/*,video/*" multiple class="sr-only">
                                         </label>
                                         <p class="pl-1">或拖放檔案</p>
                                     </div>
-                                    <p class="text-xs text-gray-500">PNG, JPG, GIF, MP4 最大 50MB，最多兩個檔案</p>
+                                    <p class="text-sm text-gray-500">PNG, JPG, GIF, MP4 最大 50MB，最多兩個檔案</p>
                                 </div>
                             </div>
-                            <button type="button" id="giphyButton" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition duration-300">
+                            <button type="button" id="giphyButton" class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-xl hover:from-pink-600 hover:to-purple-600 transition duration-300 font-semibold text-lg shadow-lg hover:shadow-xl">
                                 GIPHY
                             </button>
                         </div>
-                        <div id="mediaPreview" class="mt-4 flex space-x-4"></div>
+                        <div id="mediaPreview" class="mt-6 flex space-x-6"></div>
                     </div>
                     <div>
-                        <button type="submit" id="submitButton" class="submit-button w-full flex justify-center items-center py-3 px-6 text-base font-medium">
-                            <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button type="submit" id="submitButton" class="submit-button w-full flex justify-center items-center py-4 px-8 text-lg font-semibold">
+                            <svg class="h-6 w-6 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
                             發布
@@ -320,17 +355,33 @@
                 </form>
             </div>
 
-            <div id="postCountDisplay" class="mb-8 text-center text-lg font-semibold text-indigo-700 bg-white p-4 rounded-lg shadow-md"></div>
-            <div id="approvedCountDisplay" class="mb-8 text-center text-lg font-semibold text-green-700 bg-white p-4 rounded-lg shadow-md"></div>
-            <div id="pendingCountDisplay" class="mb-8 text-center text-lg font-semibold text-red-700 bg-white p-4 rounded-lg shadow-md"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div id="postCountDisplay" class="stats-card text-center">
+                    <div class="text-2xl font-bold text-indigo-600">目前共有</div>
+                    <div class="text-4xl font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">0</div>
+                    <div class="text-lg text-gray-600 mt-1">則貼文</div>
+                </div>
+                
+                <div id="approvedCountDisplay" class="stats-card text-center">
+                    <div class="text-2xl font-bold text-green-600">已批准</div>
+                    <div class="text-4xl font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-emerald-500">0</div>
+                    <div class="text-lg text-gray-600 mt-1">則貼文</div>
+                </div>
+                
+                <div id="pendingCountDisplay" class="stats-card text-center">
+                    <div class="text-2xl font-bold text-amber-600">未批准</div>
+                    <div class="text-4xl font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-orange-500">0</div>
+                    <div class="text-lg text-gray-600 mt-1">則貼文</div>
+                </div>
+            </div>
 
 <!-- GIPHY Modal -->
 <div id="giphyModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h2 class="text-2xl font-bold mb-4 text-indigo-600">搜索 GIPHY</h2>
+        <h2 class="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500">搜索 GIPHY</h2>
         <input type="text" id="giphySearch" placeholder="搜索 GIF...">
-        <div id="giphyResults" class="mt-4"></div>
+        <div id="giphyResults" class="mt-6"></div>
     </div>
 </div>
 
@@ -355,68 +406,21 @@
 
     const postContent = document.getElementById('postContent');
     const postTitle = document.getElementById('postTitle');
-    const titleContainer = document.getElementById('titleContainer');
     const charCount = document.getElementById('charCount');
     const submitButton = document.getElementById('submitButton');
     const postMedia = document.getElementById('postMedia');
     const mediaPreview = document.getElementById('mediaPreview');
-    const postCountDisplay = document.getElementById('postCountDisplay');
-    const approvedCountDisplay = document.getElementById('approvedCountDisplay');
-    const pendingCountDisplay = document.getElementById('pendingCountDisplay');
-    const shortPostBtn = document.getElementById('shortPostBtn');
-    const longPostBtn = document.getElementById('longPostBtn');
+    const postCountDisplay = document.getElementById('postCountDisplay').querySelector('.text-4xl');
+    const approvedCountDisplay = document.getElementById('approvedCountDisplay').querySelector('.text-4xl');
+    const pendingCountDisplay = document.getElementById('pendingCountDisplay').querySelector('.text-4xl');
     const giphyButton = document.getElementById('giphyButton');
     const giphyModal = document.getElementById('giphyModal');
     const giphySearch = document.getElementById('giphySearch');
     const giphyResults = document.getElementById('giphyResults');
     const closeModal = document.getElementsByClassName('close')[0];
 
-    let isShortPost = true;
     let minChars = 3;
     let selectedGifs = [];
-
-    shortPostBtn.addEventListener('click', () => {
-        isShortPost = true;
-        minChars = 10;
-        shortPostBtn.classList.add('active');
-        longPostBtn.classList.remove('active');
-        titleContainer.classList.add('hidden');
-        updateCharCount();
-    });
-
-    longPostBtn.addEventListener('click', () => {
-        isShortPost = false;
-        minChars = 50;
-        longPostBtn.classList.add('active');
-        shortPostBtn.classList.remove('active');
-        titleContainer.classList.remove('hidden');
-        updateCharCount();
-    });
-
-    // 獲取並顯示帖子數量
-    function updatePostCount() {
-        db.collection('posts').get().then((snapshot) => {
-            const count = snapshot.size;
-            postCountDisplay.textContent = `目前共有 ${count} 則貼文`;
-
-            let approvedCount = 0;
-            let pendingCount = 0;
-
-            snapshot.forEach(doc => {
-                if (doc.data().approved) {
-                    approvedCount++;
-                } else {
-                    pendingCount++;
-                }
-            });
-
-            approvedCountDisplay.textContent = `已批准的貼文: ${approvedCount}`;
-            pendingCountDisplay.textContent = `未批准的貼文: ${pendingCount}`;
-        });
-    }
-
-    // 頁面加載時更新帖子數量
-    updatePostCount();
 
     function updateCharCount() {
         const currentLength = postContent.value.length;
@@ -447,7 +451,7 @@
             reader.onload = function(e) {
                 const mediaElement = document.createElement(file.type.startsWith('video') ? 'video' : 'img');
                 mediaElement.src = e.target.result;
-                mediaElement.classList.add('h-24', 'w-24', 'object-cover', 'rounded-lg', 'shadow-md', 'transition-transform', 'duration-300', 'hover:scale-110');
+                mediaElement.classList.add('h-28', 'w-28', 'object-cover', 'rounded-xl', 'shadow-lg', 'transition-transform', 'duration-300', 'hover:scale-110');
                 if (file.type.startsWith('video')) {
                     mediaElement.controls = true;
                 }
@@ -465,7 +469,7 @@
     function createDeleteButton() {
         const deleteButton = document.createElement('button');
         deleteButton.innerHTML = '&times;';
-        deleteButton.classList.add('absolute', 'top-0', 'right-0', 'bg-red-500', 'text-white', 'rounded-full', 'w-6', 'h-6', 'flex', 'items-center', 'justify-center', 'cursor-pointer', 'hover:bg-red-600', 'transition-colors');
+        deleteButton.classList.add('absolute', 'top-0', 'right-0', 'bg-red-500', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center', 'cursor-pointer', 'hover:bg-red-600', 'transition-colors', 'text-xl', 'font-bold', 'shadow-lg');
         deleteButton.addEventListener('click', function(e) {
             e.preventDefault();
             this.parentElement.remove();
@@ -544,7 +548,7 @@
         const img = document.createElement('img');
         img.src = gif.images.fixed_height.url;
         img.alt = gif.title;
-        img.classList.add('h-24', 'w-24', 'object-cover', 'rounded-lg', 'shadow-md', 'transition-transform', 'duration-300', 'hover:scale-110');
+        img.classList.add('h-28', 'w-28', 'object-cover', 'rounded-xl', 'shadow-lg', 'transition-transform', 'duration-300', 'hover:scale-110');
         const deleteButton = createDeleteButton();
         const container = document.createElement('div');
         container.classList.add('relative');
@@ -555,6 +559,31 @@
         giphyModal.style.display = 'none';
     }
 
+    // 獲取並顯示帖子數量
+    function updatePostCount() {
+        db.collection('posts').get().then((snapshot) => {
+            const count = snapshot.size;
+            postCountDisplay.textContent = count;
+
+            let approvedCount = 0;
+            let pendingCount = 0;
+
+            snapshot.forEach(doc => {
+                if (doc.data().approved) {
+                    approvedCount++;
+                } else {
+                    pendingCount++;
+                }
+            });
+
+            approvedCountDisplay.textContent = approvedCount;
+            pendingCountDisplay.textContent = pendingCount;
+        });
+    }
+
+    // 頁面加載時更新帖子數量
+    updatePostCount();
+
     document.getElementById('postForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
@@ -564,11 +593,6 @@
         
         if (content.trim().length < minChars && mediaFiles.length === 0 && selectedGifs.length === 0) {
             alert(`請輸入至少${minChars}字的內容或選擇圖片/GIF`);
-            return;
-        }
-        
-        if (!isShortPost && title.trim().length === 0) {
-            alert('長文請輸入標題');
             return;
         }
         
