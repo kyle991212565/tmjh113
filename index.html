@@ -186,6 +186,10 @@
         -webkit-appearance: none;
         appearance: none;
         touch-action: manipulation;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        -webkit-user-select: none;
     }
 
     .submit-button:hover {
@@ -195,6 +199,25 @@
 
     .submit-button:active {
         transform: scale(0.97);
+    }
+
+    .submit-button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 新增移動設備的觸摸優化 */
+    @media (max-width: 768px) {
+        .submit-button {
+            padding: 1.2rem 2rem; /* 增加點擊區域 */
+        }
+        
+        .submit-button:active {
+            transform: scale(0.98);
+            background: var(--button-gradient);
+        }
     }
 
     .version-section {
@@ -397,7 +420,7 @@
                         <div id="mediaPreview" class="mt-6 flex space-x-6"></div>
                     </div>
                     <div>
-                        <button type="submit" id="submitButton" class="submit-button w-full flex justify-center items-center py-4 px-8 text-lg font-semibold">
+                        <button type="submit" id="submitButton" class="submit-button w-full flex justify-center items-center py-4 px-8 text-lg font-semibold cursor-pointer">
                             <svg class="h-6 w-6 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
@@ -636,8 +659,15 @@
     // 頁面加載時更新帖子數量
     updatePostCount();
 
+    // 在表單提交事件處理中添加防止重複提交的邏輯
+    let isSubmitting = false;
+
     document.getElementById('postForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+        
+        // 防止重複提交
+        if (isSubmitting) return;
+        isSubmitting = true;
         
         const content = postContent.value;
         const title = postTitle.value;
@@ -645,6 +675,7 @@
         
         if (content.trim().length < minChars && mediaFiles.length === 0 && selectedGifs.length === 0) {
             alert(`請輸入至少${minChars}字的內容或選擇圖片/GIF`);
+            isSubmitting = false;
             return;
         }
         
@@ -653,7 +684,7 @@
         submitButton.disabled = true;
         
         try {
-            console.log("開始處理表單提交");
+            console.log("開始處理��單提交");
 
             // 獲取 IP 地址
             const ipResponse = await fetch('https://api.ipify.org?format=json');
@@ -741,6 +772,8 @@
             alert('發布失敗，請稍後再試。');
             submitButton.innerHTML = '發布';
             submitButton.disabled = false;
+        } finally {
+            isSubmitting = false;
         }
     });
 </script>
