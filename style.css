@@ -95,12 +95,17 @@ body {
 }
 
 .card {
-    background-color: var(--card-background);
+    background: white;
     border-radius: 2rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
 @media (max-width: 640px) {
@@ -122,11 +127,6 @@ body {
         padding-top: 2rem !important;
         padding-bottom: 2rem !important;
     }
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
 }
 
 .toggle-button {
@@ -506,4 +506,47 @@ textarea:focus, input[type="text"]:focus {
     main.nav-collapsed-margin {
         padding-right: calc(70px + 2rem) !important;
     }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.8s ease-in;
+}
+
+.animate-slideDown {
+    animation: slideDown 0.8s ease-out;
+}
+
+/* 添加平滑滾動效果 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 為所有互動元素添加過渡效果 */
+button, a, input, textarea {
+    transition: all 0.3s ease;
+}
+
+/* 添加卡片懸浮效果 */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 添加輸入框聚焦效果 */
+textarea:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
